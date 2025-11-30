@@ -38,7 +38,7 @@ async function bootstrap() {
 
   await app.listen({
     port: Number(process.env.PORT),
-    host: process.env.HOST,
+    host: process.env.HOST || '0.0.0.0',
   });
 }
 bootstrap();

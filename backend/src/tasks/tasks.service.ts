@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -17,7 +21,9 @@ export class TasksService {
           title: createTaskDto.title,
           description: createTaskDto.description,
           priority: createTaskDto.priority || 'medium',
-          deadline: createTaskDto.deadline ? new Date(createTaskDto.deadline) : null,
+          deadline: createTaskDto.deadline
+            ? new Date(createTaskDto.deadline)
+            : null,
           extra: createTaskDto.extra || {},
           userId,
         },
@@ -107,7 +113,9 @@ export class TasksService {
       }
 
       // 处理完成时间逻辑
-      let completedAt = updateTaskDto.completedAt ? new Date(updateTaskDto.completedAt) : undefined;
+      let completedAt = updateTaskDto.completedAt
+        ? new Date(updateTaskDto.completedAt)
+        : undefined;
       if (updateTaskDto.status === 'done' && !completedAt) {
         completedAt = new Date();
       }
@@ -116,10 +124,14 @@ export class TasksService {
         where: { id },
         data: {
           ...(updateTaskDto.title && { title: updateTaskDto.title }),
-          ...(updateTaskDto.description !== undefined && { description: updateTaskDto.description }),
+          ...(updateTaskDto.description !== undefined && {
+            description: updateTaskDto.description,
+          }),
           ...(updateTaskDto.status && { status: updateTaskDto.status }),
           ...(updateTaskDto.priority && { priority: updateTaskDto.priority }),
-          ...(updateTaskDto.deadline && { deadline: new Date(updateTaskDto.deadline) }),
+          ...(updateTaskDto.deadline && {
+            deadline: new Date(updateTaskDto.deadline),
+          }),
           ...(updateTaskDto.extra && { extra: updateTaskDto.extra }),
           ...(completedAt && { completedAt }),
         },
