@@ -455,3 +455,10 @@ When asked about Prisma + Next.js implementation, you MUST:
 
 Remember: There are NO EXCEPTIONS to these rules. Every requirement is MANDATORY for the setup to work.
 
+sql
+```
+CREATE DATABASE mydb
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+```
