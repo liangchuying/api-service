@@ -20,6 +20,7 @@ model User {
   roles     UserRole[]
   posts     Post[]
   tasks     Task[]
+  purchases PurchaseRecord[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -80,6 +81,47 @@ model Task {
   completedAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  description String?           @db.Text
+  price       Float
+  inventory   Int               @default(0)
+  isActive    Boolean           @default(true)
+  purchases   PurchaseRecord[]
+  images      ProductImage[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model PurchaseRecord {
+  id         Int      @id @default(autoincrement())
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  buyer      User     @relation(fields: [buyerId], references: [id])
+  buyerId    Int
+  quantity   Int      @default(1)
+  totalPrice Float
+  status     String   @default("pending")
+  purchasedAt DateTime @default(now())
+
+  @@index([productId])
+  @@index([buyerId])
+}
+
+model ProductImage {
+  id         Int      @id @default(autoincrement())
+  url        String
+  alt        String?
+  isPrimary  Boolean  @default(false)
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([productId])
 }
 
 

@@ -60,7 +60,7 @@ export class AuthService {
       throw new UnauthorizedException('账号或密码错误');
     }
 
-    const roles = user.roles.map((r) => r.role.name as string);
+    const roles = user.roles.map((r) => r.role.name);
     return this.buildToken(user.id, user.email, roles);
   }
 
