@@ -16,11 +16,13 @@ export class PrismaService
 
     try {
       // 清理连接字符串（去除可能的引号）
-      const cleanConnectionString = connectionString.trim().replace(/^["']|["']$/g, '');
-      
+      const cleanConnectionString = connectionString
+        .trim()
+        .replace(/^["']|["']$/g, '');
+
       // 从 DATABASE_URL 解析连接参数
       const dbUrl = new URL(cleanConnectionString);
-      
+
       const database = dbUrl.pathname.slice(1); // 移除前导斜杠
 
       if (!database) {

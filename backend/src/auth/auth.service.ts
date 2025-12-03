@@ -32,7 +32,7 @@ export class AuthService {
         password: hash,
         nickname: data.nickname,
         avatar: data.avatar,
-        phone: data.phone
+        phone: data.phone,
       },
     });
     return this.buildToken(user.id, user.email);
@@ -60,7 +60,7 @@ export class AuthService {
       throw new UnauthorizedException('账号或密码错误');
     }
 
-    const roles = user.roles.map((r) => r.role.name);
+    const roles = user.roles.map((r) => r.role.name as string);
     return this.buildToken(user.id, user.email, roles);
   }
 
@@ -76,5 +76,3 @@ export class AuthService {
     };
   }
 }
-
-

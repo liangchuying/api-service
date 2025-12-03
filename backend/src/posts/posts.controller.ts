@@ -44,10 +44,7 @@ export class PostsController {
 
   @Roles('admin')
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdatePostDto,
-  ) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdatePostDto) {
     return this.postsService.update(id, dto);
   }
 

@@ -43,7 +43,7 @@ export class TasksService {
    */
   async findAll(userId: number, status?: string) {
     try {
-      const where: any = { userId };
+      const where: { userId: number; status?: string } = { userId };
       if (status) {
         where.status = status;
       }
@@ -237,12 +237,7 @@ export class TasksService {
       return {
         statusCode: 200,
         message: '获取统计信息成功',
-        data: {
-          total,
-          todo,
-          doing,
-          done,
-        },
+        data: { total, todo, doing, done },
       };
     } catch (error) {
       throw new BadRequestException('获取统计信息失败: ' + error.message);

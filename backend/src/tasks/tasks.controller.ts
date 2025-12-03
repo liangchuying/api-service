@@ -71,6 +71,10 @@ export class TasksController {
     @Request() req,
     @Body() body: { ids: number[]; status: string },
   ) {
-    return this.tasksService.updateStatus(body.ids, req.user.userId, body.status);
+    return this.tasksService.updateStatus(
+      body.ids,
+      req.user.userId,
+      body.status,
+    );
   }
 }

@@ -16,7 +16,11 @@ export class CreateTaskDto {
   @IsOptional()
   priority?: string;
 
-  @ApiProperty({ description: '截止日期', required: false, example: '2025-12-31T23:59:59Z' })
+  @ApiProperty({
+    description: '截止日期',
+    required: false,
+    example: '2025-12-31T23:59:59Z',
+  })
   @IsDateString()
   @IsOptional()
   deadline?: string;

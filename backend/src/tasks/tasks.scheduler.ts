@@ -51,7 +51,9 @@ export class TasksScheduler {
 
       // 这里示例性地记录日志。你可以替换成发送通知、邮件或更新任务状态等操作。
       for (const task of tasks) {
-        this.logger.log(`Task expiring soon: id=${task.id}, title=${task.title}, deadline=${task.deadline}`);
+        this.logger.log(
+          `Task expiring soon: id=${task.id}, title=${task.title}, deadline=${task.deadline}`,
+        );
       }
     } catch (error) {
       this.logger.error('Failed to check expiring tasks: ' + error.message);
