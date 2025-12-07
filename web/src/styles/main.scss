@@ -1,0 +1,64 @@
+/**
+ * 主样式文件
+ * 导入所有样式模块
+ */
+
+@import "tailwindcss";
+
+// 工具类（变量、mixins、函数）
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/functions";
+
+// 基础样式
+@import "base/reset";
+
+// 全局样式
+:root {
+  --background: #{$bg-color};
+  --foreground: #{$text-color};
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #{$dark-bg-color};
+    --foreground: #{$dark-text-color};
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+// 全局工具类
+.container {
+  @include container();
+}
+
+.flex-center {
+  @include flex-center();
+}
+
+.flex-between {
+  @include flex-between();
+}
+
+.text-ellipsis {
+  @include text-ellipsis();
+}
+
+.card {
+  @include card();
+}
+

@@ -1,0 +1,54 @@
+/**
+ * 按钮组件样式示例
+ * 展示如何使用 Sass 变量和 Mixins
+ */
+
+@import "@/styles/utils/variables";
+@import "@/styles/utils/mixins";
+
+.button {
+  @include transition(all, 0.3s);
+  
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
+  cursor: pointer;
+  border: 1px solid $border-color;
+  
+  // 嵌套选择器
+  &--primary {
+    background-color: $primary-color;
+    color: #ffffff;
+    border-color: $primary-color;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+    
+    &:active {
+      background-color: darken($primary-color, 15%);
+    }
+  }
+  
+  &--secondary {
+    background-color: $bg-color-secondary;
+    color: $text-color;
+    
+    &:hover {
+      background-color: darken($bg-color-secondary, 5%);
+    }
+  }
+  
+  // 响应式设计
+  @include respond-to(md) {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+  }
+  
+  // 禁用状态
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+

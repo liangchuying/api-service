@@ -1,0 +1,24 @@
+/**
+ * Sass 函数
+ */
+
+// 计算 rem
+@function rem($pixels, $base-font-size: 16px) {
+  @return calc($pixels / $base-font-size) * 1rem;
+}
+
+// 计算 em
+@function em($pixels, $base-font-size: 16px) {
+  @return calc($pixels / $base-font-size) * 1em;
+}
+
+// 颜色变亮
+@function lighten-color($color, $percentage) {
+  @return lighten($color, $percentage);
+}
+
+// 颜色变暗
+@function darken-color($color, $percentage) {
+  @return darken($color, $percentage);
+}
+

@@ -1,0 +1,32 @@
+/**
+ * 布局组件样式
+ */
+
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-header {
+  background: $bg-color;
+  padding: $spacing-md $spacing-lg;
+  box-shadow: $shadow-sm;
+  
+  @include respond-to(md) {
+    padding: $spacing-lg $spacing-xl;
+  }
+}
+
+.layout-content {
+  flex: 1;
+  padding: $spacing-lg;
+  
+  @include respond-to(md) {
+    padding: $spacing-xl $spacing-xxl;
+  }
+}
+

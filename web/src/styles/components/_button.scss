@@ -1,0 +1,43 @@
+/**
+ * 按钮组件样式
+ */
+
+@import "../utils/variables";
+@import "../utils/mixins";
+
+.custom-button {
+  @include transition(all, 0.3s);
+  
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+  
+  &--primary {
+    background-color: $primary-color;
+    color: #ffffff;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+  
+  &--secondary {
+    background-color: $bg-color-secondary;
+    color: $text-color;
+    
+    &:hover {
+      background-color: darken($bg-color-secondary, 5%);
+    }
+  }
+  
+  @include respond-to(sm) {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+  }
+}
+
