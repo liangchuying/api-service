@@ -11,7 +11,7 @@
 @import "utils/functions";
 
 // 基础样式
-@import "base/reset";
+@import "./base/reset";
 
 // 全局样式
 :root {
@@ -61,4 +61,5 @@ body {
 .card {
   @include card();
 }
+
 

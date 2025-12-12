@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "API Service",
+  title: "web - API Service",
   description: "API Service Web Application",
 };
 
