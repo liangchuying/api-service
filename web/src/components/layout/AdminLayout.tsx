@@ -10,6 +10,7 @@ import {
   SettingOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  SafetyOutlined,
 } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
 import Header from "./Header";
@@ -37,9 +38,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         label: "仪表盘",
       },
       {
-        key: "/users",
+        key: "/user/users",
         icon: <TeamOutlined />,
         label: "用户管理",
+      },
+      {
+        key: "/role",
+        icon: <SafetyOutlined />,
+        label: "角色管理",
       },
       {
         key: "/posts",
@@ -89,7 +95,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[pathname || "/"]}
+          // Compute a root-level selected key so nested routes (e.g. /users/1)
+          // still highlight the parent menu item (/users)
+          selectedKeys={[(() => {
+            if (!pathname) return "/";
+            if (pathname === "/") return "/";
+            const parts = pathname.split("/").filter(Boolean);
+            return parts.length ? `/${parts[0]}` : "/";
+          })()]}
           items={menuItems}
           onClick={handleMenuClick}
         />
