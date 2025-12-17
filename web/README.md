@@ -168,7 +168,38 @@ import styles from "./MyComponent.module.scss";
 - `styles/base/_reset.scss` - 样式重置
 - `styles/components/` - 组件样式
 - `styles/main.scss` - 主样式文件（已在 layout.tsx 中导入）
+## 路由拦截（基础） 🔒
 
+本项目增加了一个基于 Next.js Middleware 的基础路由拦截（见 `/middleware.ts`）。工作方式如下：
+
+- 中间件会检查请求中是否存在 `token` Cookie（`req.cookies.get('token')`）。
+- 对于未携带 `token` 的受保护页面，将会被重定向到 `/login`，并带上 `from` 查询参数用于登录后跳回。
+- 中间件会放行静态资源、`/_next`、`/api`、`/login` 等公共路径。
+
+如何测试：
+
+1. 启动开发服务器：
+
+```bash
+npm run dev
+```
+
+2. 在浏览器打开某个受保护页面（例如 `/user/users`），如果没有 `token` Cookie，页面应被重定向到 `/login`。
+
+3. 设置一个 `token` Cookie（例如通过浏览器控制台或后端登录接口），再次访问受保护页面应允许访问。
+
+示例：在当前前端实现中，登录接口返回 `accessToken` 后前端会把 token 保存到 `localStorage`（用于 UI）并**同时**写入一个普通 Cookie：
+
+```js
+// 示例（客户端）：
+localStorage.setItem('token', accessToken);
+// 简单的 cookie 写入（非 HttpOnly，仅用于开发/演示）
+document.cookie = `token=${accessToken}; path=/`;
+```
+
+生产建议：后端登录接口直接返回并设置 `Set-Cookie: token=...; HttpOnly; Path=/; Secure; SameSite=Strict`，让浏览器自动携带 HttpOnly cookie（更安全）。
+
+> 提示：中间件路径为 `matcher: ["/((?!_next|api|login|favicon.ico).*)"]`，如果你需要更细粒度的规则，请修改 `/middleware.ts` 中的 `matcher` 或逻辑。
 ## 更多资源
 
 - [Next.js 文档](https://nextjs.org/docs)
