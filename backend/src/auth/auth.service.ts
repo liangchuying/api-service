@@ -38,8 +38,7 @@ export class AuthService {
     return this.buildToken(user.id, user.email);
   }
 
-  async login(data: LoginDto) {
-    console.log('Login attempt for email:', data.email);
+  async login(data: LoginDto, res: any) {
     const user = await this.prisma.user.findUnique({
       where: { email: data.email },
       include: {
@@ -61,7 +60,19 @@ export class AuthService {
     }
 
     const roles = user.roles.map((r) => r.role.name);
-    return this.buildToken(user.id, user.email, roles);
+
+    let result = await this.buildToken(user.id, user.email, roles);
+
+    res
+      .setCookie('token', result.accessToken, {
+        path: '/',
+        httpOnly: true,
+        // cookie 在 HTTP 中是无效，在 HTTPS 中才有效
+        secure: true,
+        sameSite: 'lax',
+      });
+
+    return result;
   }
 
   private async buildToken(

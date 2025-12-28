@@ -29,6 +29,13 @@ export class PrismaService
         throw new Error('DATABASE_URL 中未指定数据库名称');
       }
 
+      console.log('Parsed database connection parameters:', {
+        host: dbUrl.hostname,
+        port: dbUrl.port,
+        user: dbUrl.username,
+        database: database,
+        password: dbUrl.password,
+      });
       // 使用解析出的参数创建 MariaDB adapter
       const adapter = new PrismaMariaDb({
         host: dbUrl.hostname,
